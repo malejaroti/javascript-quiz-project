@@ -55,17 +55,26 @@ class Quiz {
     }
   }
   filterQuestionsByDifficulty(difficulty){
-    if(difficulty > 1  && difficulty < 3){
+    // added less/greater or equal to symbols. Without it the only acceptable difficult in 2 for this method
+    if(difficulty >= 1  && difficulty <= 3){
       this.questions = this.questions.filter( question => question.difficulty === difficulty)
     }
+
   }
   // averageDifficulty(){
   //   return this.questions.reduce( (sum, ele) =>  (sum + ele.difficulty))
   // }
-  averageDifficulty(){ 
-    let sum = this.questions.reduce( (sum, ele) =>  (sum + ele.difficulty),0)
-    return sum / this.questions.length
-  }
+  // averageDifficulty(){ 
+  //   let sum = this.questions.reduce( (sum, ele) =>  (sum + ele.difficulty),0)
+  //   return sum / this.questions.length
+//   }
+
+averageDifficulty(){
+  let sumOfDifficulty=this.questions.reduce((acc,question)=> (acc + question.difficulty ),0)
+  return sumOfDifficulty/this.questions.length
+
+
+}
 
 }
 
