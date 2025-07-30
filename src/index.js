@@ -99,18 +99,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Show the question
     // Update the inner text of the question container element and show the question text
 
+    questionContainer.innerText=question.text
     
     // 2. Update the green progress bar
     // Update the green progress bar (div#progressBar) width so that it shows the percentage of questions answered
     
-    progressBar.style.width = `65%`; // This value is hardcoded as a placeholder
+    let progress= quiz.currentQuestionIndex+1/quiz.questions.length *100
+    progressBar.style.width = `${progress}%`; // This value is hardcoded as a placeholder
 
 
 
     // 3. Update the question count text 
     // Update the question count (div#questionCount) show the current question out of total questions
     
-    questionCount.innerText = `Question 1 of 10`; //  This value is hardcoded as a placeholder
+    questionCount.innerText = `Question ${quiz.currentQuestionIndex+1} of ${quiz.questions.length}`; //  This value is hardcoded as a placeholder
 
 
     
@@ -118,17 +120,26 @@ document.addEventListener("DOMContentLoaded", () => {
     // Loop through the current question `choices`.
       // For each choice create a new radio input with a label, and append it to the choice container.
       // Each choice should be displayed as a radio input element with a label:
-      /* 
-          <input type="radio" name="choice" value="CHOICE TEXT HERE">
-          <label>CHOICE TEXT HERE</label>
-        <br>
-      */
+      question.choices.forEach((choice, index) => {
+          radioNode = document.createElement("input")
+          labelNode = document.createElement("label")
+        
+          radioNode.type = "radio"
+          radioNode.value = choice
+          radioNode.name = "choice"
+          labelNode.innerText = choice 
+
+          choiceContainer.appendChild(radioNode)
+          choiceContainer.appendChild(labelNode)
+          choiceContainer.appendChild(document.createElement("br"))
+      });
+
+      
       // Hint 1: You can use the `document.createElement()` method to create a new element.
       // Hint 2: You can use the `element.type`, `element.name`, and `element.value` properties to set the type, name, and value of an element.
       // Hint 3: You can use the `element.appendChild()` method to append an element to the choices container.
-      // Hint 4: You can use the `element.innerText` property to set the inner text of an element.
-
-  }
+      // Hint 4: You can use the `element.innerText` property to set the inner text of an element. */}
+    }
 
 
   
