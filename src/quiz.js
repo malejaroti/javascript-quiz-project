@@ -44,6 +44,7 @@ class Quiz {
     if (this.questions[this.currentQuestionIndex].answer === answer) {
       this.correctAnswers++;
     }
+    console.log(this.correctAnswers)
   }
 
   // 6. hasEnded()
