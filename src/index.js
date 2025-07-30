@@ -105,7 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Update the green progress bar (div#progressBar) width so that it shows the percentage of questions answered
     
     let progress= (quiz.currentQuestionIndex+1)/quiz.questions.length *100
+<<<<<<< HEAD
     console.log(progress)
+=======
+>>>>>>> 6af57948dbad04fbadddf28fec3b94a2c56c9bb2
     progressBar.style.width = `${progress}%`; // This value is hardcoded as a placeholder
 
 
@@ -146,8 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
   function nextButtonHandler () {
     let selectedAnswer; // A variable to store the selected answer value
-
-
 
     // YOUR CODE HERE:
     //
@@ -190,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
     endView.style.display = "flex";
     
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
-    resultContainer.innerText = `You scored 1 out of 1 correct answers!`; // This value is hardcoded as a placeholder
+    resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.questions.length} correct answers!`; // This value is hardcoded as a placeholder
   }
   
 });
