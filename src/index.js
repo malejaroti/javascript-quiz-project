@@ -24,12 +24,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Array with the quiz questions
   const questions = [
+    //3 Questions about New Zealand
     new Question("What is the most dangerous animal in New Zealand", ["Great white shark", "Orca whale", "Orc", "Australian", "Elephant"], "Australian", 1),
     new Question("People often say New Zealanders have many friends. What is the sheep to human ratio in New Zealand", ["1 sheep per human", "6 sheep per human", "22 sheep per human"], "22 sheep per human", 1),
     new Question("How much ice cream do Kiwi's consume per capita per year", ["4 litres", "7 litres ", "8 litres", "26 litres"], "26 litres", 1),
-    new Question("What is the most dangerous animal in New Zealand", ["Great white shark", "Orca whale", "Orc", "Australian", "Elephant"], "Australian", 1),
+    // 2 questions about Dilan
+
+    //3 Questions about Colombia
+    new Question("What do Colombians traditionally put in their hot chocolate?", ["Cheese", "Avocado", "Banana", "Ketchup", "Coffee"], "Cheese", 1),
     new Question("Which of these is a common nickname Colombians use for foreigners?", ["Parce", "Ñero", "Gringo", "Paisa", "Cucho"], "Gringo", 1),
     new Question("What happens in Bogotá on Ciclovía Sundays?", ["Everyone goes to church", "Cars turn into bikes", "Streets are closed for bikes and people", "People play tejo in the street", "Aguardiente flows in the fountains"], "Streets are closed for bikes and people", 1),
+    //2 questions about Alejandra
+    new Question("What were the weirdest pets Alejandra's family kept in their apartment in Bogotá?", ["A dog", "A cat", "Hamsters", "Five little chicks", "A turtle"], "Five little chicks", 1),
   ];
   const quizDuration = 120; // 120 seconds (2 minutes)
 
