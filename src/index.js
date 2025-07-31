@@ -10,11 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const questionContainer = document.querySelector("#question");
   const choiceContainer = document.querySelector("#choices");
   const nextButton = document.querySelector("#nextButton");
-  const restartButton=document.querySelector("#restartButton")
+  const restartButton = document.querySelector("#restartButton");
 
   // End view elements
   const resultContainer = document.querySelector("#result");
-
 
   /************  SET VISIBILITY OF VIEWS  ************/
 
@@ -22,9 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   quizView.style.display = "block";
   endView.style.display = "none";
 
-
   /************  QUIZ DATA  ************/
-  
+
   // Array with the quiz questions
   const questions = [
     // new Question("What is 2 + 2?", ["3", "4", "5", "6"], "4", 1),
@@ -33,26 +31,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3),
     // Add more questions here
 
-
-    new Question ("What is the most dangerous animal in New Zealand", ["Great white shark", "Orca whale", "Orc", "Australian", "Elephant"], "Australian", 1),
-    new Question ("People often say New Zealanders have many friends. What is the sheep to human ratio in New Zealand", ["1 sheep per human", "6 sheep per human", "22 sheep per human"], "22 sheep per human", 1),
-    new Question ("How much ice cream do Kiwi's consume per capita per year", ["4 litres", "7 litres ", "8 litres", "26 litres"], "26 litres", 1)
+    new Question("What is the most dangerous animal in New Zealand", ["Great white shark", "Orca whale", "Orc", "Australian", "Elephant"], "Australian", 1),
+    new Question("People often say New Zealanders have many friends. What is the sheep to human ratio in New Zealand", ["1 sheep per human", "6 sheep per human", "22 sheep per human"], "22 sheep per human", 1),
+    new Question("How much ice cream do Kiwi's consume per capita per year", ["4 litres", "7 litres ", "8 litres", "26 litres"], "26 litres", 1),
+    new Question("What is the most dangerous animal in New Zealand", ["Great white shark", "Orca whale", "Orc", "Australian", "Elephant"], "Australian", 1),
+    new Question("Which of these is a common nickname Colombians use for foreigners?", ["Parce", "Ñero", "Gringo", "Paisa", "Cucho"], "Gringo", 1),
+    new Question("What happens in Bogotá on Ciclovía Sundays?", ["Everyone goes to church", "Cars turn into bikes", "Streets are closed for bikes and people", "People play tejo in the street", "Aguardiente flows in the fountains"], "Streets are closed for bikes and people", 1),
   ];
   const quizDuration = 120; // 120 seconds (2 minutes)
 
-
   /************  QUIZ INSTANCE  ************/
-  
+
   // Create a new Quiz instance object
   const quiz = new Quiz(questions, quizDuration, quizDuration);
   // Shuffle the quiz questions
   quiz.shuffleQuestions();
 
-
   /************  SHOW INITIAL CONTENT  ************/
 
   // Convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
-  const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+  const minutes = Math.floor(quiz.timeRemaining / 60)
+    .toString()
+    .padStart(2, "0");
   const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
 
   // Display the time remaining in the time remaining container
@@ -60,60 +60,50 @@ document.addEventListener("DOMContentLoaded", () => {
   timeRemainingContainer.innerText = `${minutes}:${seconds}`;
 
   // Show first question
-  const timer=startTimer() // start the timer when we show the first question
+  const timer = startTimer(); // start the timer when we show the first question
   showQuestion();
-
-
 
   /************  TIMER  ************/
 
-// I wrapped the timer in a function that returned the timer reference. This made it a bit easier to start stop and reset the timer
-// depending where in the quiz the user is
-  function startTimer(){
-    quiz.timeRemaining=quiz.timeLimit 
-    
-    let timer=setInterval(()=>{
-    quiz.timeRemaining --
-    timeRemainingContainer.innerText = quiz.convertTimeRemianingToString();
-    
-    // when the user runs out of time we immediatly move to the final page
-    if(quiz.timeRemaining <0){
-      clearInterval(timer)
-      // ensures the timer resets
-      showResults()
-    }
+  // I wrapped the timer in a function that returned the timer reference. This made it a bit easier to start stop and reset the timer
+  // depending where in the quiz the user is
+  function startTimer() {
+    quiz.timeRemaining = quiz.timeLimit;
 
-  },1000)
-  return timer;
-}
+    let timer = setInterval(() => {
+      quiz.timeRemaining--;
+      timeRemainingContainer.innerText = quiz.convertTimeRemianingToString();
 
+      // when the user runs out of time we immediatly move to the final page
+      if (quiz.timeRemaining < 0) {
+        clearInterval(timer);
+        // ensures the timer resets
+        showResults();
+      }
+    }, 1000);
+    return timer;
+  }
 
   /************  EVENT LISTENERS  ************/
 
   nextButton.addEventListener("click", nextButtonHandler);
-  restartButton.addEventListener("click",() => {
-      quizView.style.display = "block";
-      endView.style.display = "none";
-      quiz.timeRemaining = quiz.timeLimit
-      quiz.shuffleQuestions()
-      
-      // restart the timer when the restart button is pressed
-      startTimer() 
+  restartButton.addEventListener("click", () => {
+    quizView.style.display = "block";
+    endView.style.display = "none";
+    quiz.timeRemaining = quiz.timeLimit;
+    quiz.shuffleQuestions();
 
-      showQuestion()
+    // restart the timer when the restart button is pressed
+    startTimer();
 
-  })
-
-
-
+    showQuestion();
+  });
 
   /************  FUNCTIONS  ************/
 
   // showQuestion() - Displays the current question and its choices
   // nextButtonHandler() - Handles the click on the next button
   // showResults() - Displays the end view and the quiz results
-
-
 
   function showQuestion() {
     // If the quiz has ended, show the results
@@ -130,60 +120,50 @@ document.addEventListener("DOMContentLoaded", () => {
     const question = quiz.getQuestion();
     // Shuffle the choices of the current question by calling the method 'shuffleChoices()' on the question object
     question.shuffleChoices();
-    
-    
 
     // YOUR CODE HERE:
     //
     // 1. Show the question
     // Update the inner text of the question container element and show the question text
 
-    questionContainer.innerText=question.text
-    
+    questionContainer.innerText = question.text;
+
     // 2. Update the green progress bar
     // Update the green progress bar (div#progressBar) width so that it shows the percentage of questions answered
-    
-    let progress= (quiz.currentQuestionIndex+1)/quiz.questions.length *100
+
+    let progress = ((quiz.currentQuestionIndex + 1) / quiz.questions.length) * 100;
     progressBar.style.width = `${progress}%`; // This value is hardcoded as a placeholder
 
-
-
-    // 3. Update the question count text 
+    // 3. Update the question count text
     // Update the question count (div#questionCount) show the current question out of total questions
-    
-    questionCount.innerText = `Question ${quiz.currentQuestionIndex+1} of ${quiz.questions.length}`; //  This value is hardcoded as a placeholder
 
+    questionCount.innerText = `Question ${quiz.currentQuestionIndex + 1} of ${quiz.questions.length}`; //  This value is hardcoded as a placeholder
 
-    
     // 4. Create and display new radio input element with a label for each choice.
     // Loop through the current question `choices`.
-      // For each choice create a new radio input with a label, and append it to the choice container.
-      // Each choice should be displayed as a radio input element with a label:
-      question.choices.forEach((choice, index) => {
-          radioNode = document.createElement("input")
-          labelNode = document.createElement("label")
-        
-          radioNode.type = "radio"
-          radioNode.value = choice
-          radioNode.name = "choice"
-          labelNode.innerText = choice 
+    // For each choice create a new radio input with a label, and append it to the choice container.
+    // Each choice should be displayed as a radio input element with a label:
+    question.choices.forEach((choice, index) => {
+      radioNode = document.createElement("input");
+      labelNode = document.createElement("label");
 
-          choiceContainer.appendChild(radioNode)
-          choiceContainer.appendChild(labelNode)
-          choiceContainer.appendChild(document.createElement("br"))
-      });
- 
-      
-      // Hint 1: You can use the `document.createElement()` method to create a new element.
-      // Hint 2: You can use the `element.type`, `element.name`, and `element.value` properties to set the type, name, and value of an element.
-      // Hint 3: You can use the `element.appendChild()` method to append an element to the choices container.
-      // Hint 4: You can use the `element.innerText` property to set the inner text of an element. */}
-    }
+      radioNode.type = "radio";
+      radioNode.value = choice;
+      radioNode.name = "choice";
+      labelNode.innerText = choice;
 
+      choiceContainer.appendChild(radioNode);
+      choiceContainer.appendChild(labelNode);
+      choiceContainer.appendChild(document.createElement("br"));
+    });
 
-  
-  
-function nextButtonHandler () {
+    // Hint 1: You can use the `document.createElement()` method to create a new element.
+    // Hint 2: You can use the `element.type`, `element.name`, and `element.value` properties to set the type, name, and value of an element.
+    // Hint 3: You can use the `element.appendChild()` method to append an element to the choices container.
+    // Hint 4: You can use the `element.innerText` property to set the inner text of an element. */}
+  }
+
+  function nextButtonHandler() {
     let selectedAnswer; // A variable to store the selected answer value
     // YOUR CODE HERE:
     //
@@ -191,24 +171,21 @@ function nextButtonHandler () {
     const checkedChoice = document.querySelector('input[name="choice"]:checked');
     // console.log(checkedChoice)
     // 2. Loop through all the choice elements and check which one is selected
-      // Hint: Radio input elements have a property `.checked` (e.g., `element.checked`).
-      //  When a radio input gets selected the `.checked` property will be set to true.
-      //  You can use check which choice was selected by checking if the `.checked` property is true.
-    selectedAnswer = checkedChoice.value
-    quiz.checkAnswer(selectedAnswer)
-    console.log(selectedAnswer)
+    // Hint: Radio input elements have a property `.checked` (e.g., `element.checked`).
+    //  When a radio input gets selected the `.checked` property will be set to true.
+    //  You can use check which choice was selected by checking if the `.checked` property is true.
+    selectedAnswer = checkedChoice.value;
+    quiz.checkAnswer(selectedAnswer);
+    console.log(selectedAnswer);
     // 3. If an answer is selected (`selectedAnswer`), check if it is correct and move to the next question
-      // Check if selected answer is correct by calling the quiz method `checkAnswer()` with the selected answer.
-      // Move to the next question by calling the quiz method `moveToNextQuestion()`.
-      // Show the next question by calling the function `showQuestion()`.
-        quiz.moveToNextQuestion()
-        showQuestion()
-}
-
-
+    // Check if selected answer is correct by calling the quiz method `checkAnswer()` with the selected answer.
+    // Move to the next question by calling the quiz method `moveToNextQuestion()`.
+    // Show the next question by calling the function `showQuestion()`.
+    quiz.moveToNextQuestion();
+    showQuestion();
+  }
 
   function showResults() {
-
     // YOUR CODE HERE:
     //
     // 1. Hide the quiz view (div#quizView)
@@ -216,11 +193,8 @@ function nextButtonHandler () {
 
     // 2. Show the end view (div#endView)
     endView.style.display = "flex";
-    
+
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
     resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.questions.length} correct answers!`; // This value is hardcoded as a placeholder
   }
-  
 });
-
-
