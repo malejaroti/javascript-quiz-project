@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
     quiz.questions.forEach((question) => {
       answeredCorrectly = true;
       const answer = answeredCorrectly ? "correct-answer" : "incorrect-answer";
-      answerNode.innerHTML += `<div class="answers"><p>${question.text}: </p><span class=${answer}>${question.answer}</span></div>`;
+      answerNode.innerHTML += `<div class="answers"><p>${question.text}: <span class=${answer}>${question.answer}</span> </p></div>`;
       // answerNode.querySelectorAll(`span`).style.color = "blue";
     });
   }
