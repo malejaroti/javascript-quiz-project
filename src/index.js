@@ -27,13 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // Array with the quiz questions
   const questions = [
-    new Question("What is 2 + 2?", ["3", "4", "5", "6"], "4", 1),
-    new Question("What is the capital of France?", ["Miami", "Paris", "Oslo", "Rome"], "Paris", 1),
-    new Question("Who created JavaScript?", ["Plato", "Brendan Eich", "Lea Verou", "Bill Gates"], "Brendan Eich", 2),
-    new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3),
+    // new Question("What is 2 + 2?", ["3", "4", "5", "6"], "4", 1),
+    // new Question("What is the capital of France?", ["Miami", "Paris", "Oslo", "Rome"], "Paris", 1),
+    // new Question("Who created JavaScript?", ["Plato", "Brendan Eich", "Lea Verou", "Bill Gates"], "Brendan Eich", 2),
+    // new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3),
     // Add more questions here
+
+
+    new Question ("What is the most dangerous animal in New Zealand", ["Great white shark", "Orca whale", "Orc", "Australian", "Elephant"], "Australian", 1),
+    new Question ("People often say New Zealanders have many friends. What is the sheep to human ratio in New Zealand", ["1 sheep per human", "6 sheep per human", "22 sheep per human"], "22 sheep per human", 1),
+    new Question ("How much ice cream do Kiwi's consume per capita per year", ["4 litres", "7 litres ", "8 litres", "26 litres"], "26 litres", 1)
   ];
-  const quizDuration = 5; // 120 seconds (2 minutes)
+  const quizDuration = 120; // 120 seconds (2 minutes)
 
 
   /************  QUIZ INSTANCE  ************/
@@ -55,17 +60,26 @@ document.addEventListener("DOMContentLoaded", () => {
   timeRemainingContainer.innerText = `${minutes}:${seconds}`;
 
   // Show first question
-  const timer=startTimer()
+  const timer=startTimer() // start the timer when we show the first question
   showQuestion();
 
 
 
   /************  TIMER  ************/
+
+// I wrapped the timer in a function that returned the timer reference. This made it a bit easier to start stop and reset the timer
+// depending where in the quiz the user is
   function startTimer(){
+    quiz.timeRemaining=quiz.timeLimit 
+    
     let timer=setInterval(()=>{
     quiz.timeRemaining --
     timeRemainingContainer.innerText = quiz.convertTimeRemianingToString();
-    if(quiz.timeRemaining<0){
+    
+    // when the user runs out of time we immediatly move to the final page
+    if(quiz.timeRemaining <0){
+      clearInterval(timer)
+      // ensures the timer resets
       showResults()
     }
 
@@ -82,7 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
       endView.style.display = "none";
       quiz.timeRemaining = quiz.timeLimit
       quiz.shuffleQuestions()
-      startTimer()
+      
+      // restart the timer when the restart button is pressed
+      startTimer() 
+
       showQuestion()
 
   })
@@ -202,9 +219,6 @@ function nextButtonHandler () {
     
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
     resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.questions.length} correct answers!`; // This value is hardcoded as a placeholder
-
-    clearInterval(timer)
-    quiz.timeRemaining=quiz.timeLimit
   }
   
 });

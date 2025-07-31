@@ -54,6 +54,10 @@ class Quiz {
     } else if (this.currentQuestionIndex === (this.questions.length )){
       return true;
     }
+    // when we run out of time, stop the quiz
+    else if(this.timeRemaining<0){
+      return true;
+    }
   }
   filterQuestionsByDifficulty(difficulty){
     // added less/greater or equal to symbols. Without it the only acceptable difficult in 2 for this method
