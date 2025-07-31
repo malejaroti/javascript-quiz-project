@@ -76,7 +76,13 @@ averageDifficulty(){
 
 
 }
+convertTimeRemianingToString(){
 
+  const minutes = Math.floor(this.timeRemaining / 60).toString().padStart(2, "0");
+  const seconds = (this.timeRemaining % 60).toString().padStart(2, "0");
+  return `${minutes}:${seconds}`
+
+}
 }
 
 // should return 'false' when 'currentQuestionIndex' is less than the 'questions' array length

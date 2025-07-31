@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Question("What is the mass–energy equivalence equation?", ["E = mc^2", "E = m*c^2", "E = m*c^3", "E = m*c"], "E = mc^2", 3),
     // Add more questions here
   ];
-  const quizDuration = 120; // 120 seconds (2 minutes)
+  const quizDuration = 5; // 120 seconds (2 minutes)
 
 
   /************  QUIZ INSTANCE  ************/
@@ -55,12 +55,23 @@ document.addEventListener("DOMContentLoaded", () => {
   timeRemainingContainer.innerText = `${minutes}:${seconds}`;
 
   // Show first question
+  const timer=startTimer()
   showQuestion();
 
 
-  /************  TIMER  ************/
 
-  let timer;
+  /************  TIMER  ************/
+  function startTimer(){
+    let timer=setInterval(()=>{
+    quiz.timeRemaining --
+    timeRemainingContainer.innerText = quiz.convertTimeRemianingToString();
+    if(quiz.timeRemaining<0){
+      showResults()
+    }
+
+  },1000)
+  return timer;
+}
 
 
   /************  EVENT LISTENERS  ************/
@@ -69,9 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
   restartButton.addEventListener("click",() => {
       quizView.style.display = "block";
       endView.style.display = "none";
-
+      quiz.timeRemaining = quiz.timeLimit
       quiz.shuffleQuestions()
+      startTimer()
       showQuestion()
+
   })
 
 
@@ -142,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
           choiceContainer.appendChild(labelNode)
           choiceContainer.appendChild(document.createElement("br"))
       });
-
+ 
       
       // Hint 1: You can use the `document.createElement()` method to create a new element.
       // Hint 2: You can use the `element.type`, `element.name`, and `element.value` properties to set the type, name, and value of an element.
@@ -189,6 +202,9 @@ function nextButtonHandler () {
     
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
     resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.questions.length} correct answers!`; // This value is hardcoded as a placeholder
+
+    clearInterval(timer)
+    quiz.timeRemaining=quiz.timeLimit
   }
   
 });
