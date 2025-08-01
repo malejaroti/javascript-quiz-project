@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Question("What happens in Bogotá on Ciclovía Sundays?", ["Everyone goes to church", "Cars turn into bikes", "Streets are closed for bikes and people", "People play tejo in the street", "Aguardiente flows in the fountains"], "Streets are closed for bikes and people", 1),
     //2 questions about Alejandra
     new Question("What were the weirdest pets Alejandra's family kept in their apartment in Bogotá?", ["A dog", "A cat", "Hamsters", "Five little chicks", "A turtle"], "Five little chicks", 1),
+    //missing 1
   ];
   const quizDuration = 120; // 120 seconds (2 minutes)
 
@@ -172,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
     quiz.questions.forEach((question) => {
       answeredCorrectly = true;
       const answer = answeredCorrectly ? "correct-answer" : "incorrect-answer";
-      answerNode.innerHTML += `<div class="answers"><p>${question.text}: <span class=${answer}>${question.answer}</span> </p></div>`;
+      answerNode.innerHTML += `<div class="answers"><p>- ${question.text}: <span>${question.answer}</span> </p></div>`;
       // answerNode.querySelectorAll(`span`).style.color = "blue";
     });
   }
